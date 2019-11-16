@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.Data;
+using Library.Data.Interface;
+using Library.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +31,8 @@ namespace Library
             services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("constrg")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

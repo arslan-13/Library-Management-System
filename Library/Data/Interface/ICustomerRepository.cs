@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Interface
 {
-    public interface ICustomerInterface
+    public interface ICustomerRepository
     {
         Task<IEnumerable<Customer>> GetAllCustomer();
         Task<Customer> GetCustomerByID(int ID);

@@ -10,7 +10,7 @@ namespace Library.Data.Interface
     {
         Task<IEnumerable<Author>> GetAllAuthors();
 
-        Task<Author> GetAuthorByID();
+        Task<Author> GetAuthorByID(int ID);
 
         void Add(Author author);
         void Update(Author author);

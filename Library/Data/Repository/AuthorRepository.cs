@@ -1,5 +1,6 @@
 ﻿using Library.Data.Interface;
 using Library.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,40 +10,40 @@ namespace Library.Data.Repository
 {
     public class AuthorRepository : IAuthorRepository
     {
-        private readonly LibraryDbContext context;
+        private readonly LibraryDbContext cntx;
 
-        public AuthorRepository(LibraryDbContext libraryDbContext)
+        public AuthorRepository(LibraryDbContext libraryDbcntx)
         {
-            context = libraryDbContext;
+            cntx = libraryDbcntx;
         }
         public void Add(Author author)
         {
-            throw new NotImplementedException();
+            cntx.AuthorTbl.Add(author);
         }
 
         public void Delete(Author author)
         {
-            throw new NotImplementedException();
+            cntx.AuthorTbl.Remove(author);
         }
 
-        public Task<IEnumerable<Author>> GetAllAuthors()
+        public async Task<IEnumerable<Author>> GetAllAuthors()
         {
-            throw new NotImplementedException();
+            return await cntx.AuthorTbl.ToListAsync();
         }
 
-        public Task<Author> GetAuthorByID()
+        public async Task<Author> GetAuthorByID(int ID)
         {
-            throw new NotImplementedException();
+            return await cntx.AuthorTbl.FindAsync(ID);
         }
 
-        public Task Save()
+        public async Task Save()
         {
-            throw new NotImplementedException();
+            await cntx.SaveChangesAsync();
         }
 
         public void Update(Author author)
         {
-            throw new NotImplementedException();
+            cntx.Update(author);
         }
     }
 }

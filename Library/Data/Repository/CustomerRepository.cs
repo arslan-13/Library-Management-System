@@ -1,5 +1,6 @@
 ﻿using Library.Data.Interface;
 using Library.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,42 +8,42 @@ using System.Threading.Tasks;
 
 namespace Library.Data.Repository
 {
-    public class CustomerRepository : ICustomerInterface
+    public class CustomerRepository : ICustomerRepository
     {
-        private readonly LibraryDbContext context;
+        private readonly LibraryDbContext cntx;
 
         public CustomerRepository(LibraryDbContext libraryDbContext)
         {
-            context = libraryDbContext;
+            cntx = libraryDbContext;
         }
 
-        public Task<IEnumerable<Customer>> GetAllCustomer()
+        public async Task<IEnumerable<Customer>> GetAllCustomer()
         {
-            throw new NotImplementedException();
+            return await cntx.CustomersTbl.ToListAsync();
         }
         public void Add(Customer customer)
         {
-            throw new NotImplementedException();
+            cntx.CustomersTbl.Add(customer);
         }
 
         public void Delete(Customer customer)
         {
-            throw new NotImplementedException();
+            cntx.CustomersTbl.Remove(customer);
         }
 
-        public Task<Customer> GetCustomerByID(int ID)
+        public async Task<Customer> GetCustomerByID(int ID)
         {
-            throw new NotImplementedException();
+            return await cntx.CustomersTbl.FindAsync(ID);
         }
 
-        public Task Save()
+        public async Task Save()
         {
-            throw new NotImplementedException();
+            await cntx.SaveChangesAsync();
         }
 
         public void Update(Customer customer)
         {
-            throw new NotImplementedException();
+            cntx.CustomersTbl.Update(customer);
         }
     }
 }

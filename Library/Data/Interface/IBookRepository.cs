@@ -10,7 +10,7 @@ namespace Library.Data.Interface
     {
         Task<IEnumerable<Book>> GetAllBook();
 
-        Task<Book> GetBookByID();
+        Task<Book> GetBookByID(int ID);
 
         void Add(Book book);
         void Update(Book book);
