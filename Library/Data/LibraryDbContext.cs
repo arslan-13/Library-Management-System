@@ -35,6 +35,15 @@ namespace Library.Data
                 e.Property(x => x.Name).IsRequired();
                 e.Property(x => x.Email).IsRequired();
             });
+
+            modelBuilder.Entity<Book>(e =>
+            {
+                e.HasKey(x => x.ID);
+                e.Property(x => x.Title).IsRequired();
+                e.HasOne(x => x.Author).WithMany(x => x.books).HasForeignKey(x => x.AuthorID);
+                //e.HasOne(x => x.Customer).WithMany(x => x.books).HasForeignKey(x => x.CustID);
+
+            });
         }
     }
 }

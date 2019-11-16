@@ -1,0 +1,31 @@
+﻿@model BookViewModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="m-auto">
+            <h3>Add Book</h3>
+            <form asp-action="Add" method="post">
+                <div class="form-group">
+                    <label asp-for="book.Title" class="control-label"></label>
+                    <input asp-for="book.Title" class="form-control" placeholder="Book Name">
+                    <span asp-validation-for="book.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="book.Author"></label>
+                    @Html.DropDownListFor(x => x.book.AuthorID,
+                   new SelectList(Model.authors.Select(x => new { Value = x.ID, Text = x.Name }), "Value", "Text"),
+                   "Select Author", htmlAttributes: new { @class = "form-control border-input" })
+                    <span asp-validation-for="book.Author"></span>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

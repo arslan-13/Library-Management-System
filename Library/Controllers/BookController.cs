@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.Data.Interface;
 using Library.Data.Models;
+using Library.Data.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
@@ -13,47 +14,57 @@ namespace Library.Controllers
         #region Contructor + Repository
 
         private readonly IBookRepository repo;
-
-        public BookController(IBookRepository book)
+        private readonly IAuthorRepository repoAuthor;
+        public BookController(IBookRepository book, IAuthorRepository authorRepository)
         {
             repo = book;
+            repoAuthor = authorRepository;
         }
         #endregion
 
         #region List.............................
         public async Task<IActionResult> Index()
         {
-            var x = await repo.GetAllBook();
+            var x = await repo.GetBookWithAuthors();
             return View(x);
         }
         #endregion
 
         #region Add..............................
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            var BookVM = new BookViewModel
+            {
+                authors = await repoAuthor.GetAllAuthors()
+            };
+            return View(BookVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Book book)
+        public async Task<IActionResult> Add(BookViewModel bookViewModel)
         {
             if (ModelState.IsValid)
             {
-                repo.Add(book);
+                repo.Add(bookViewModel.book);
                 await repo.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            bookViewModel.authors = await repoAuthor.GetAllAuthors();
+            return View(bookViewModel);
         }
         #endregion
 
         #region Edit.............................
         public async Task<IActionResult> Edit(int ID)
         {
-            var c = await repo.GetBookByID(ID);
-            return View(c);
+            var BookVM = new BookViewModel
+            {
+                book = await repo.GetBookByID(ID),
+                authors = await repoAuthor.GetAllAuthors()
+            };
+            return View(BookVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -92,12 +103,12 @@ namespace Library.Controllers
 
         #endregion
 
-        #region Details...........................
-        public async Task<IActionResult> Detail(int ID)
-        {
-            var c = await repo.GetBookByID(ID);
-            return View(c);
-        }
-        #endregion
+        //#region Details...........................
+        //public async Task<IActionResult> Detail(int ID)
+        //{
+        //    var c = await repo.GetBookByID(ID);
+        //    return View(c);
+        //}
+        //#endregion
     }
 }

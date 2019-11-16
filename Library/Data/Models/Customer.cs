@@ -16,5 +16,7 @@ namespace Library.Data.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        //public ICollection<Book> books { get; set; }
     }
 }

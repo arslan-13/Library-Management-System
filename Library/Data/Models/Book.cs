@@ -15,7 +15,8 @@ namespace Library.Data.Models
         public int AuthorID { get; set; }
         public Author Author { get; set; }
 
-        public int CustomerID { get; set; }
+
+        public int CustID { get; set; }
         public Customer Customer { get; set; }
     }
 }

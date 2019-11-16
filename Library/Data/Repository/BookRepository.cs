@@ -45,5 +45,15 @@ namespace Library.Data.Repository
         {
             cntx.BookTbl.Update(book);
         }
+
+        public async Task<IEnumerable<Book>> GetBookWithAuthors()
+        {
+            return await cntx.BookTbl.Include(x => x.Author).ToListAsync();
+        }
+
+        public IEnumerable<Book> GetAvailableBook()
+        {
+            return cntx.BookTbl.Include(x => x.Author).Where(x => x.CustID == 0);
+        }
     }
 }

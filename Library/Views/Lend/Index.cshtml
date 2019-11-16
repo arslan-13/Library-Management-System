@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="m-auto">
+                <a class="btn btn-success btn-lg" style="margin-bottom:20px;" asp-action="Add">Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin:auto;">
+        <table class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <th>@item.Title</th>
+                        <th>@item.Author.Name</th>
+                        <th>
+                            <a asp-action="Lend" asp-route-ID="@item.ID" class="btn btn-info">Lend</a>
+                            <a asp-action="Edit" asp-route-ID="@item.ID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-ID="@item.ID" class="btn btn-danger">Delete</a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

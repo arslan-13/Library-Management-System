@@ -17,5 +17,7 @@ namespace Library.Data.Interface
         void Delete(Book book);
 
         Task Save();
+        Task<IEnumerable<Book>> GetBookWithAuthors();
+        IEnumerable<Book> GetAvailableBook();
     }
 }
