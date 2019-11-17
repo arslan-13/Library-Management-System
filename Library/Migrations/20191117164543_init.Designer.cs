@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20191116162552_Init6")]
-    partial class Init6
+    [Migration("20191117164543_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,9 +49,6 @@ namespace Library.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AuthorID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustID")
                         .HasColumnType("int");
 
                     b.Property<int?>("CustomerID")
@@ -104,7 +101,7 @@ namespace Library.Migrations
                         .IsRequired();
 
                     b.HasOne("Library.Data.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("books")
                         .HasForeignKey("CustomerID");
                 });
 #pragma warning restore 612, 618

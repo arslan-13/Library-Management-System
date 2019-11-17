@@ -49,9 +49,6 @@ namespace Library.Migrations
                     b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CustomerID")
                         .HasColumnType("int");
 
@@ -102,7 +99,7 @@ namespace Library.Migrations
                         .IsRequired();
 
                     b.HasOne("Library.Data.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("books")
                         .HasForeignKey("CustomerID");
                 });
 #pragma warning restore 612, 618

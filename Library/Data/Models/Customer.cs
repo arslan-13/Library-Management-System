@@ -17,6 +17,6 @@ namespace Library.Data.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        //public ICollection<Book> books { get; set; }
+        public ICollection<Book> books { get; set; }
     }
 }

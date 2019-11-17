@@ -19,5 +19,6 @@ namespace Library.Data.Interface
         Task Save();
         Task<IEnumerable<Book>> GetBookWithAuthors();
         IEnumerable<Book> GetAvailableBook();
+        IEnumerable<Book> GetBookWithAuthorAndCustomer();
     }
 }

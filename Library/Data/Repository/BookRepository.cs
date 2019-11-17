@@ -46,14 +46,29 @@ namespace Library.Data.Repository
             cntx.BookTbl.Update(book);
         }
 
+
+        //for book controller to show all book
         public async Task<IEnumerable<Book>> GetBookWithAuthors()
         {
             return await cntx.BookTbl.Include(x => x.Author).ToListAsync();
         }
 
+
+        //for Lend Controller to show All available book
         public IEnumerable<Book> GetAvailableBook()
         {
-            return cntx.BookTbl.Include(x => x.Author).Where(x => x.CustID == 0);
+            return cntx.BookTbl
+                .Include(x => x.Author)
+                .Where(x => x.CustomerID == null);
+        }
+
+        //for Return Controller to show all Lended Books
+        public IEnumerable<Book> GetBookWithAuthorAndCustomer()
+        {
+            return cntx.BookTbl
+                .Include(x => x.Author)
+                .Include(x => x.Customer)
+                .Where(x => x.CustomerID != null);
         }
     }
 }

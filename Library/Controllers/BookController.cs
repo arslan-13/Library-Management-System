@@ -42,7 +42,6 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(BookViewModel bookViewModel)
         {
             if (ModelState.IsValid)

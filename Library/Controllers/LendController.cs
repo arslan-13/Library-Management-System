@@ -43,8 +43,9 @@ namespace Library.Controllers
         public async Task<IActionResult> Lend(LendBookViewModel lendBookViewModel)
         {
             var book = await repoBook.GetBookByID(lendBookViewModel.book.ID);
-            var customer = await repoCust.GetCustomerByID(lendBookViewModel.book.CustID);
-            book.CustID = customer.ID;
+            var customer = await repoCust.GetCustomerByID((int)lendBookViewModel.book.CustomerID);
+            //book.CustID = customer.ID;
+            book.Customer = customer;
 
             repoBook.Update(book);
             await repoBook.Save();
