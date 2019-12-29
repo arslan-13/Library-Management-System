@@ -8,6 +8,7 @@ using Library.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,7 @@ namespace Library
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("constrg")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<LibraryDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
@@ -46,6 +48,7 @@ namespace Library
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -34,7 +34,7 @@ namespace Library.Controllers
         {
             var book = await repoBook.GetBookByID(ID);
             book.Customer = null;
-            book.CustomerID = 0;
+            book.CustomerID = null;
             repoBook.Update(book);
             await repoBook.Save();
 

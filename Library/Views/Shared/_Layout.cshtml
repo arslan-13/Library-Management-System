@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/PaperBootstrap/PaperBootstrap.css" rel="stylesheet" />
+    @*<link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />*@
+    @*<link href="~/twitter-bootstrap/css/bootstrap-grid.css" rel="stylesheet" />*@
 </head>
 <body>
     <div>
@@ -28,6 +30,7 @@
                         <li><a asp-controller="Book" asp-action="Index">Book</a></li>
                         <li><a asp-controller="Lend" asp-action="Index">Lend</a></li>
                         <li><a asp-controller="Return" asp-action="Index">Return</a></li>
+
                         @*<li class="dropdown">
                                 <a href="https://bootswatch.com/3/paper/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -49,7 +52,7 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="https://bootswatch.com/3/paper/#">Login</a></li>
-                        <li><a href="https://bootswatch.com/3/paper/#">Registration</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">Registration</a></li>
                     </ul>
                 </div>
             </div>
