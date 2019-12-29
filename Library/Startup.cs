@@ -30,7 +30,17 @@ namespace Library
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("constrg")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<LibraryDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(o =>
+            {
+                o.Password.RequiredLength = 4;
+                o.Password.RequiredUniqueChars = 0;
+            }).AddEntityFrameworkStores<LibraryDbContext>();
+
+            services.Configure<IdentityOptions>(o =>
+            {
+                o.Password.RequireUppercase = false;
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<ICustomerRepository, CustomerRepository>();

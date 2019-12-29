@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> signManager;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -51,8 +52,21 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://bootswatch.com/3/paper/#">Login</a></li>
-                        <li><a asp-controller="Account" asp-action="Register">Registration</a></li>
+
+                        @if (signManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <form method="post" asp-action="logout" asp-controller="account">
+                                    <button type="submit" class="btn btn-danger">Logout : @User.Identity.Name</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li><a asp-controller="Account" asp-action="Register">Registration</a></li>
+                        }
+
                     </ul>
                 </div>
             </div>
