@@ -20,7 +20,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="https://bootswatch.com/3/paper/#">Library Management System</a>
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">Library Management System</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -56,9 +56,10 @@
                         @if (signManager.IsSignedIn(User))
                         {
                             <li>
-                                <form method="post" asp-action="logout" asp-controller="account">
-                                    <button type="submit" class="btn btn-danger">Logout : @User.Identity.Name</button>
-                                </form>
+                                <a asp-action="Logout" asp-controller="Account">Welcome ! @User.Identity.Name - Logout</a>
+                                @*<form method="post" asp-action="logout" asp-controller="account">
+                                        <button type="submit" class="btn btn-danger">Logout : @User.Identity.Name</button>
+                                    </form>*@
                             </li>
                         }
                         else

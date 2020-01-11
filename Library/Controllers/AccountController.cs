@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library.Data.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,11 +22,13 @@ namespace Library.Controllers
 
 
         #region Registration
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegistrationViewModel model)
         {
             if (ModelState.IsValid)
@@ -59,11 +62,13 @@ namespace Library.Controllers
         #endregion
 
         #region Login
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)

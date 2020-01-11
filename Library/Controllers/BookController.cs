@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using Library.Data.Interface;
 using Library.Data.Models;
 using Library.Data.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
-        #region Contructor + Repository
+        #region Constructor + Repository
 
         private readonly IBookRepository repo;
         private readonly IAuthorRepository repoAuthor;
@@ -23,6 +25,7 @@ namespace Library.Controllers
         #endregion
 
         #region List.............................
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var x = await repo.GetBookWithAuthors();

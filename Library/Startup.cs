@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Library.Data;
 using Library.Data.Interface;
 using Library.Data.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +32,7 @@ namespace Library
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("constrg")));
+
             services.AddIdentity<IdentityUser, IdentityRole>(o =>
             {
                 o.Password.RequiredLength = 4;
@@ -39,9 +42,16 @@ namespace Library
             services.Configure<IdentityOptions>(o =>
             {
                 o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequireDigit = false;
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(o =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                o.Filters.Add(new AuthorizeFilter(policy));
+            });
+
             services.AddRazorPages();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IAuthorRepository, AuthorRepository>();
@@ -59,6 +69,7 @@ namespace Library
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.Data.Interface;
 using Library.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class AuthorController : Controller
     {
         #region Contructor + Repository
@@ -21,6 +23,7 @@ namespace Library.Controllers
         #endregion
 
         #region List.............................
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var x = await repo.GetAllAuthors();
@@ -67,7 +70,6 @@ namespace Library.Controllers
             }
             return View(author);
         }
-
         #endregion
 
         #region Delete...........................
